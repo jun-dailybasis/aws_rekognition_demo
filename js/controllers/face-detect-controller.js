@@ -145,7 +145,7 @@ function FaceDetectController($scope, $state, $interval, $http, config, $timeout
     });
   };
 
-
+  //감정 tracking기능 
   var trackEmotions = function () {
     if (!$scope.isTrackingEmotion) return;
 
@@ -235,6 +235,7 @@ function FaceDetectController($scope, $state, $interval, $http, config, $timeout
     else $("#custom-file-control").attr("data-content", files[0].name);
   };
 
+  //새로 얼굴 사진 업로드할 떄!!
   $scope.upload_photo = function () {
     toggleBtn($("#btn_upload"), "loading");
 
@@ -272,7 +273,7 @@ function FaceDetectController($scope, $state, $interval, $http, config, $timeout
     document.getElementById('image_file').value = "";
     $("#custom-file-control").attr("data-content", "Choose file...");
   };
-
+ //사진 제거할 떄~ Collection 에서 FACEID지운다..
   $scope.delete_photo = function (photoKey, FaceId) {
 
     keys = [];
@@ -280,6 +281,7 @@ function FaceDetectController($scope, $state, $interval, $http, config, $timeout
     var params = {
       Delete: { Objects: keys }
     };
+   
     s3.deleteObjects(params, function (err, data) {
       if (err) {
         console.log(err, err.stack);
@@ -292,6 +294,7 @@ function FaceDetectController($scope, $state, $interval, $http, config, $timeout
           FaceId
         ]
       };
+      
       rekognition.deleteFaces(params, function (err, data) {
         if (err) {
           console.log(err, err.stack); // an error occurred
@@ -308,6 +311,7 @@ function FaceDetectController($scope, $state, $interval, $http, config, $timeout
             }
           };
 
+          //FACEID 제거할 때 
           docClient.delete(params, function (err, data) {
             if (err) {
 
@@ -386,6 +390,7 @@ function FaceDetectController($scope, $state, $interval, $http, config, $timeout
       }
     };
 
+    //S3에 업로드 하는 파트!
     rekognition.indexFaces(params, function (err, data) {
 
       if (err) console.log(err, err.stack); // an error occurred
@@ -436,6 +441,8 @@ function FaceDetectController($scope, $state, $interval, $http, config, $timeout
       }
     });
   };
+
+  //카메라 웹캠 부분 처리
   $scope.initCamera = function () {
     $scope.front = ! $scope.front;
     var constraints = { video: { facingMode: {exact:($scope.front ? "user" : "environment")} } }; 

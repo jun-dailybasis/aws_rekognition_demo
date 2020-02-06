@@ -2,9 +2,9 @@ angular.module('config', [])
   .constant('config',
   {
     prod: {
-      region: 'ap-northeast-2',
-      upload_bucket_name: 'jytestbucket79',
-      identity_pool_id: 'ap-northeast-2_hs8UJAsfo',
+      region: 'us-west-2',
+      upload_bucket_name: 'rekognition-stack-demo-s3upload-1gezpp4hs4cul',
+      identity_pool_id: 'us-west-2:811ae595-f007-467f-919f-0056e4a81b3b',
       face_collection: 'rekognition-demo-go',
       ddb_table: 'rekognition-demo-go'
 
@@ -12,4 +12,3 @@ angular.module('config', [])
   }
   )
   ;
-
